@@ -6,7 +6,18 @@ import { ApiFormat, RssItem } from "./types.js";
 import { sanitize } from "./utils.js";
 
 /**
- * Health check and redirect to preferred format
+ * Health check endpoint
+ */
+export async function handleHealth(c: Context): Promise<Response> {
+  return c.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    service: "rss-service"
+  }, 200);
+}
+
+/**
+ * Redirect to preferred format
  */
 export async function handleRoot(c: Context): Promise<Response> {
   return c.redirect(`/rss.xml`);
